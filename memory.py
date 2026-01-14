@@ -10,7 +10,7 @@ class Memory:
     def write16(self, addr, val):
         #little endian so LSB at lower address
         self.mem[addr] = val & 0xFF              # low byte
-        self.mem[addr + 1] = (val >> 8) & 0xFF 
+        self.mem[addr + 1] = (val >> 8) & 0xFF   #high byte 
 
 
     
@@ -22,20 +22,26 @@ class Memory:
     def read16(self, addr):
         vall = self.mem[addr] 
         valh = self.mem[addr + 1]
-
-        
-
-        val = vall | (valh << 0xFF)
+        val = vall | (valh << 8)
         return val
 
 
 
 def main():
     memory = Memory()
+    memory.write16(100, 0xABCD)
+    assert memory.read16(100) == 0xABCD
+    '''
     memory.write8(88, 90)
     val = memory.read8(1024)
 
+
+    memory.write16(43, )
+
     print(val)   
+    '''
+   
+
 
 
 if __name__ == "__main__":
